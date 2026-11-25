@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
-    // عرض notifications المستخدم
+   
     public function index(Request $request)
     {
         $notifications = $request->user()
@@ -17,7 +17,7 @@ class NotificationController extends Controller
         return response()->json($notifications);
     }
 
-    // تحديد notification كمقروءة
+  
     public function markRead(Request $request, $id)
     {
         $notification = $request->user()

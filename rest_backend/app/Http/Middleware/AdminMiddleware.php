@@ -17,7 +17,7 @@ class AdminMiddleware
     {
           $user = $request->user();
 
-        if (! $user || ! $user->isAdmin()) {
+        if (! $request->$user || ! $request->$user->isAdmin()) {
             return response()->json([
                 'message' => 'Forbidden: admins only',
             ], 403);
