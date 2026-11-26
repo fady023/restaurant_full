@@ -19,9 +19,13 @@ class MenuController extends Controller
             'name'     => 'required|string',
             'description' => 'nullable|string',
             'price'    => 'required|numeric|min:0',
-            'category' => 'required|string',
-            'image'    => 'nullable|string'
+            'category' => 'required|in:Breakfast,Main Dishes,Drinks,Desserts',
+            'image'    => 'nullable|image|max:2048'
         ]);
+
+        if ($request->hasFile('image')) {
+        $data['image'] = 'storage/'.$request->file('image')->store('menu', 'public');
+    }
 
         $item = MenuItem::create($data);
         return response()->json($item, 201);

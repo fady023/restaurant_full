@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Database\Seeders\MenuSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,9 +18,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        User::updateOrCreate(["email"=>"admin@bistro.com"],[
+            "name"=>"fady",
+            "password"=>"abcd1234",
+            "role"=>"admin",
+            "phone"=>"0100"
         ]);
+
+        $this->call(MenuSeeder::class);
     }
 }
