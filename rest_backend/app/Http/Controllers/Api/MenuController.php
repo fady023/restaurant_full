@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -24,8 +25,8 @@ class MenuController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-        $data['image'] = 'storage/'.$request->file('image')->store('menu', 'public');
-    }
+            $data['image'] = 'storage/' . $request->file('image')->store('menu', 'public');
+        }
 
         $item = MenuItem::create($data);
         return response()->json($item, 201);
@@ -35,14 +36,17 @@ class MenuController extends Controller
     {
         $item = MenuItem::findOrFail($id);
 
-           $data = $request->validate([
+        $data = $request->validate([
             'name'     => 'sometimes|string',
             'description' => 'nullable|string',
             'price'    => 'sometimes|numeric|min:0',
-            'category' => 'sometimes|string',
-            'image'    => 'nullable|string'
+            'category' => 'sometimes|in:Breakfast,Main Dishes,Drinks,Desserts',
+            'image'    => 'nullable|image|max:2048'
         ]);
 
+        if ($request->hasFile('image')) {
+            $data['image'] = 'storage/' . $request->file('image')->store('menu', 'public');
+        }
 
         $item->update($data);
         return response()->json($item);
