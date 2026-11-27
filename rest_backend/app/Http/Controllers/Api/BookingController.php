@@ -13,8 +13,9 @@ class BookingController extends Controller
 
     $request->validate([
         "date"=>"required|date|after:today",
-        "time"=>"required",
-        "guests"=>"required|integer|min:1|max:20"
+        "time"=>"required|date_format:H:i",
+        "guests"=>"required|integer|min:1|max:20",
+        'notes' => 'nullable|string|max:500'
     ]);
 
     $booking = Booking::create([
